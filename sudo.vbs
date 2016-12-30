@@ -6,16 +6,17 @@
 ' // Additional files required:  Sudo.cmd
 ' //
 ' // Purpose:   To provide a command line method of launching applications that
-' //            prompt for elevation (Run as Administrator) on Windows Vista.
+' //            prompt for elevation (Run as Administrator) on Windows Vista and above.
 ' //
 ' // Usage:     (Not used directly.  Launched from Sudo.cmd.)
 ' //
-' // Version:   1.0.1
-' // Date :     01/03/2007
+' // Version:   1.0.3
 ' //
 ' // History:
 ' // 1.0.0   01/02/2007  Created initial version.
 ' // 1.0.1   01/03/2007  Added detailed usage output.
+' // 1.0.2   ?????????  I have no idea where the previous version went.
+' // 1.0.3   30/12/2016  Added ability for "." to mean "current working dir" as it does in bash.
 ' //
 ' // ***** End Header *****
 ' //***************************************************************************
@@ -53,7 +54,6 @@ End If
 Function ReplaceDotWithCurrentWorkingDir(arguments)
   firstArgumentCharacter = Left(strArguments, 1)
   If (firstArgumentCharacter) = "." Then
-    MsgBox("Found")
     strArguments = Replace(strArguments, ".", currentWorkingDirectory)
   End If
 End Function
@@ -61,7 +61,7 @@ End Function
 
 Sub DisplayUsage
 
-    WScript.Echo "Elevate - Elevation Command Line Tool for Windows Vista" & vbCrLf & _
+    WScript.Echo "Elevate - Elevation Command Line Tool for Windows Vista and above" & vbCrLf & _
                  "" & vbCrLf & _
                  "Purpose:" & vbCrLf & _
                  "--------" & vbCrLf & _
