@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Sudo</id>
+    <version>1.0.3</version>
+    <title>Sudo</title>
+    <authors>Jan Hebnes</authors>
+    <owners>Jan Hebnes</owners>
+    <licenseUrl>http://www.gnu.org/licenses/old-licenses/lgpl-2.0.html</licenseUrl>
+    <projectUrl>http://github.com/janhebnes/chocolatey-packages/Sudo</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Used from a command line as e.g. "sudo cmd" or "sudo notepad" to elevate directly from the shell.</description>
+    <summary>Sudo is used to elevate to administrator from the command line.</summary>
+    <releaseNotes>Thanks to Ferk &lt;ferkiwi@gmail.com&gt; for providing the required fix for the package to function again in the new chocolatey</releaseNotes>
+    <tags>sudo console cmd command elevate administrator</tags>
+  </metadata>
+</package>

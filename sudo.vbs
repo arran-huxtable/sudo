@@ -21,7 +21,6 @@
 ' // ***** End Header *****
 ' //***************************************************************************
 
-
 Set objShell = CreateObject("Shell.Application")
 Set objWshShell = WScript.CreateObject("WScript.Shell")
 Set objWshProcessEnv = objWshShell.Environment("PROCESS")
@@ -37,9 +36,7 @@ ReplaceDotWithCurrentWorkingDir(strArguments)
 
 If (WScript.Arguments.Count >= 1) Then
     strFlag = WScript.Arguments(0)
-    If (strFlag = "") OR (strFlag="help") OR (strFlag="/h") OR (strFlag="\h") OR (strFlag="-h") _
-        OR (strFlag = "\?") OR (strFlag = "/?") OR (strFlag = "-?") OR (strFlag="h") _
-        OR (strFlag = "?") Then
+    If HasHelpBeenRequested(strFlag) Then
         DisplayUsage
 		WScript.Quit
     Else
@@ -50,6 +47,13 @@ Else
     DisplayUsage
     WScript.Quit
 End If
+
+Function HasHelpBeenRequested(strFlag)
+HasHelpBeenRequested = (strFlag = "") OR (strFlag="help") OR (strFlag="/h") OR (strFlag="\h") OR (strFlag="-h") _
+    OR (strFlag = "\?") OR (strFlag = "/?") OR (strFlag = "-?") OR (strFlag="h") _
+    OR (strFlag = "?")
+    MsgBox(HasHelpBeenRequested)
+End Function
 
 Function ReplaceDotWithCurrentWorkingDir(arguments)
   firstArgumentCharacter = Left(strArguments, 1)
