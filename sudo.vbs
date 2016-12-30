@@ -25,11 +25,14 @@ Set objShell = CreateObject("Shell.Application")
 Set objWshShell = WScript.CreateObject("WScript.Shell")
 Set objWshProcessEnv = objWshShell.Environment("PROCESS")
 
-' Get raw command line agruments and first argument from Elevate.cmd passed
+' Get raw command line agruments and first argument from sudo.cmd passed
 ' in through environment variables.
 strCommandLine = objWshProcessEnv("ELEVATE_CMDLINE")
 strApplication = objWshProcessEnv("ELEVATE_APP")
-strArguments = Right(strCommandLine, (Len(strCommandLine) - Len(strApplication)))
+currentWorkingDirectory = objWshProcessEnv("CURRENT_DIRECTORY")
+strArguments = Trim(Right(strCommandLine, (Len(strCommandLine) - Len(strApplication))))
+ReplaceDotWithCurrentWorkingDir(strArguments)
+
 
 If (WScript.Arguments.Count >= 1) Then
     strFlag = WScript.Arguments(0)
@@ -39,13 +42,21 @@ If (WScript.Arguments.Count >= 1) Then
         DisplayUsage
 		WScript.Quit
     Else
-		rem WScript.Echo "objShell.ShellExecute """ & strApplication & """, """ & strArguments & """, """", ""runas"" "
+		 rem WScript.Echo "objShell.ShellExecute """ & strApplication & """, """ & strArguments & """, """", ""runas"" "
         objShell.ShellExecute strApplication, strArguments, "", "runas"
     End If
 Else
     DisplayUsage
     WScript.Quit
 End If
+
+Function ReplaceDotWithCurrentWorkingDir(arguments)
+  firstArgumentCharacter = Left(strArguments, 1)
+  If (firstArgumentCharacter) = "." Then
+    MsgBox("Found")
+    strArguments = Replace(strArguments, ".", currentWorkingDirectory)
+  End If
+End Function
 
 
 Sub DisplayUsage
@@ -78,7 +89,7 @@ Sub DisplayUsage
                  "" & vbCrLf & _
                  "Sample usage with scripts:" & vbCrLf & _
                  "" & vbCrLf & _
-                 "    elevate wscript ""C:\windows\system32\slmgr.vbs"" –dli" & vbCrLf & _
+                 "    elevate wscript ""C:\windows\system32\slmgr.vbs"" ï¿½dli" & vbCrLf & _
                  "" & vbCrLf & _
                  "    elevate powershell -NoExit -Command & 'C:\Temp\Test.ps1'" & vbCrLf & _
                  "" & vbCrLf & _
