@@ -32,6 +32,7 @@ strApplication = objWshProcessEnv("ELEVATE_APP")
 currentWorkingDirectory = objWshProcessEnv("CURRENT_DIRECTORY")
 strArguments = Trim(Right(strCommandLine, (Len(strCommandLine) - Len(strApplication))))
 ReplaceDotWithCurrentWorkingDir(strArguments)
+version = "1.0.3"
 
 
 If (WScript.Arguments.Count >= 1) Then
@@ -49,10 +50,9 @@ Else
 End If
 
 Function HasHelpBeenRequested(strFlag)
-HasHelpBeenRequested = (strFlag = "") OR (strFlag="help") OR (strFlag="/h") OR (strFlag="\h") OR (strFlag="-h") _
-    OR (strFlag = "\?") OR (strFlag = "/?") OR (strFlag = "-?") OR (strFlag="h") _
-    OR (strFlag = "?")
-    MsgBox(HasHelpBeenRequested)
+  HasHelpBeenRequested = (strFlag = "") OR (strFlag="help") OR (strFlag="/h") OR (strFlag="\h") OR (strFlag="-h") _
+      OR (strFlag = "\?") OR (strFlag = "/?") OR (strFlag = "-?") OR (strFlag="h") _
+      OR (strFlag = "?")
 End Function
 
 Function ReplaceDotWithCurrentWorkingDir(arguments)
@@ -65,7 +65,7 @@ End Function
 
 Sub DisplayUsage
 
-    WScript.Echo "Elevate - Elevation Command Line Tool for Windows Vista and above" & vbCrLf & _
+    WScript.Echo "Elevate - " & "v" & version & " - Elevation Command Line Tool for Windows Vista and above" & vbCrLf & _
                  "" & vbCrLf & _
                  "Purpose:" & vbCrLf & _
                  "--------" & vbCrLf & _
