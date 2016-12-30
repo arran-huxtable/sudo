@@ -38,8 +38,11 @@ version = "1.0.3"
 If (WScript.Arguments.Count >= 1) Then
     strFlag = WScript.Arguments(0)
     If HasHelpBeenRequested(strFlag) Then
-        DisplayUsage
-		WScript.Quit
+      DisplayUsage
+      WScript.Quit
+    ElseIf HasVersionBeenRequested(strApplication) Then
+      DisplayVersion
+      WScript.Quit
     Else
 		 rem WScript.Echo "objShell.ShellExecute """ & strApplication & """, """ & strArguments & """, """", ""runas"" "
         objShell.ShellExecute strApplication, strArguments, "", "runas"
@@ -49,10 +52,18 @@ Else
     WScript.Quit
 End If
 
+Sub DisplayVersion
+  WScript.Echo "Sudo v" & version
+End Sub
+
 Function HasHelpBeenRequested(strFlag)
   HasHelpBeenRequested = (strFlag = "") OR (strFlag="help") OR (strFlag="/h") OR (strFlag="\h") OR (strFlag="-h") _
       OR (strFlag = "\?") OR (strFlag = "/?") OR (strFlag = "-?") OR (strFlag="h") _
       OR (strFlag = "?")
+End Function
+
+Function HasVersionBeenRequested(strArguments)
+  HasVersionBeenRequested = (strArguments = "--version") OR (strArguments = "-v")
 End Function
 
 Function ReplaceDotWithCurrentWorkingDir(arguments)
